@@ -22,4 +22,4 @@ absSpeedError = sum(abs(get(ehvx1, "YData")-get(thvx1, "YData"))+abs(get(ehvy1, 
 
 
 finalPoint = k*(absPositionError + absSpeedError) / 100 + (1-k) * time;
-disp(finalPoint);    %27.9835
+disp(['your performance score is: ' , num2str(finalPoint)]);    %27.9835
