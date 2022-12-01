@@ -3,7 +3,7 @@
 clear
 clc
 close all
-load 'SI_dynamic_fomation_manv_results.mat'
+load '../SI_dynamic_fomation_manv_results.mat'
 fs = 24; % Font size in the figure
 avgMs = 5; % Average marker size
 lw = 3.5; % Linewidth

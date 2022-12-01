@@ -2,6 +2,9 @@ clear
 clc
 close all
 
+%% modify ode45 options to form SYSU, the formation may fail due to the ode45 accuracy and formation init position,especially for y->s
+opts = odeset('NormControl', 'on', 'Reltol',1e-13,'AbsTol',1e-13, 'Stats','on');
+
 %% Parameter Setting
 n = 6; % Number of agents
 kv = 6; % Control gain kv
@@ -33,7 +36,7 @@ q_0 = [0, 0.5, -0.5, -0.5, 0, 0.5; ...
 %% ODE
 q_0_vec = reshape(q_0, 1, []); % reshape q_0 into a 2nx1 vector
 time_span = 0:h:tfinal; % simulation time span
-[t, q] = ode45(@SI_dynamic_fomation_manv_func, time_span, q_0_vec, [], para, Adj, 'S');
+[t, q] = ode45(@SI_dynamic_fomation_manv_func, time_span, q_0_vec, opts, para, Adj, 'S');
 
 xx = q(:, 2*(0:n - 1)+1);
 yy = q(:, 2*(0:n - 1)+2);
@@ -102,7 +105,7 @@ q_0_Y = [xx(length(t), 1), xx(length(t), 2), xx(length(t), 3), xx(length(t), 4),
 %% ODE  
 q_0_vec_Y = reshape(q_0_Y, 1, []); % reshape q_0 into a 2nx1 vector
 time_span = 0:h:tfinal; % simulation time span
-[t, q_Y] = ode45(@SI_dynamic_fomation_manv_func, time_span, q_0_vec_Y, [], para, Adj_Y, 'Y');
+[t, q_Y] = ode45(@SI_dynamic_fomation_manv_func, time_span, q_0_vec_Y, opts, para, Adj_Y, 'Y');
 
 xx_Y = q_Y(:, 2*(0:n - 1)+1);
 yy_Y = q_Y(:, 2*(0:n - 1)+2);
@@ -156,7 +159,7 @@ q_0_S = [xx_Y(length(t), 1), xx_Y(length(t), 2), xx_Y(length(t), 3), xx_Y(length
 %% ODE
 q_0_vec_S = reshape(q_0_S, 1, []); % reshape q_0 into a 2nx1 vector
 time_span = 0:h:tfinal; % simulation time span
-[t, q] = ode45(@SI_dynamic_fomation_manv_func, time_span, q_0_vec_S, [], para, Adj_S, 'S');
+[t, q] = ode45(@SI_dynamic_fomation_manv_func, time_span, q_0_vec_S, opts, para, Adj_S, 'S');
 
 xx_S = q(:, 2*(0:n - 1)+1);
 yy_S = q(:, 2*(0:n - 1)+2);
@@ -222,7 +225,7 @@ q_0_U = [xx_S(length(t), 1), xx_S(length(t), 2), xx_S(length(t), 3), xx_S(length
 %% ODE
 q_0_vec_U = reshape(q_0_U, 1, []); % reshape q_0 into a 2nx1 vector
 time_span = 0:h:tfinal; % simulation time span
-[t, q_U] = ode45(@SI_dynamic_fomation_manv_func, time_span, q_0_vec_U, [], para, Adj_U, 'U');
+[t, q_U] = ode45(@SI_dynamic_fomation_manv_func, time_span, q_0_vec_U, opts, para, Adj_U, 'U');
 
 xx_U = q_U(:, 2*(0:n - 1)+1);
 yy_U = q_U(:, 2*(0:n - 1)+2);
@@ -267,5 +270,5 @@ y = [yy; yy_Y; yy_S; yy_U];
 
 
 % save variables for plot and animation
-save('SI_dynamic_fomation_manv_results.mat')
+save('../SI_dynamic_fomation_manv_results.mat')
 disp('Simulation complete!')
