@@ -61,7 +61,7 @@ cstep = 0.01; % Period of calling student code
 vstep = 0.05; % visualization interval
 time     = 0; % current time
 vis_time = 0; % Time of last visualization
-time_tol = 25; % Maximum time that the quadrotor is allowed to fly
+time_tol = 10; % Maximum time that the quadrotor is allowed to fly
 
 % Visualization
 vis_init = false;
