@@ -8,8 +8,8 @@ I = params.I;
 
 F = m*g; M = [0.0, 0.0, 0.0]'; % You should calculate the output F and M
 %params
-Kp_i = [4,4,15]*5;   %2           3  fast
-Kd_i = [2,2,3]*5;  %0.6 soft   1.0
+Kp_i = [6,7,10]*5;   %2           3  fast
+Kd_i = [2,1,2]*5;  %0.6 soft   1.0
 Kp_phi = 20*5; %20
 Kd_phi = 6*5;  %4 fast
 Kp_theta = 20*5;

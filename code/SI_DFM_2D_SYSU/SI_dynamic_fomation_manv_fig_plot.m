@@ -1,4 +1,3 @@
-
 % plot SYSU 
 clear
 clc
