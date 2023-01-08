@@ -7,7 +7,7 @@ opts = odeset('NormControl', 'on', 'Reltol',1e-13,'AbsTol',1e-13, 'Stats','on');
 
 %% Parameter Setting
 n = 6; % Number of agents
-kv = 8; % Control gain kv
+kv = 1; % Control gain kv
 
 % connection matrix
 Adj = [0, 1, 1, 0, 0, 0; ...
@@ -18,7 +18,7 @@ Adj = [0, 1, 1, 0, 0, 0; ...
     0, 1, 1, 1, 1, 0];
 
 
-tfinal = 2; % Simulation ending time
+tfinal = 1.8; % Simulation ending time
 h = 1e-1; % 1e-2                 % ODE step
 
 % Encapusulate the paremeters into a structure 'para'

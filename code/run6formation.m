@@ -61,7 +61,7 @@ cstep = 0.01; % Period of calling student code
 vstep = 0.05; % visualization interval
 time     = 0; % current time
 vis_time = 0; % Time of last visualization
-time_tol = 10; % Maximum time that the quadrotor is allowed to fly
+time_tol = 15; % Maximum time that the quadrotor is allowed to fly
 
 % Visualization
 vis_init = false;
@@ -126,7 +126,7 @@ while (1)
     s_des = [x(i, 1), x(i, 2), x(i, 3), x(i, 4), x(i, 5), x(i, 6); ...
         y(i, 1), y(i, 2), y(i, 3), y(i, 4), y(i, 5), y(i, 6); ...
         1, 1, 1, 1, 1, 1; ...
-        0, 0, 0, 0, 0, 0; ...
+        1, 1, 1, 1, 1, 1; ...
         0, 0, 0, 0, 0, 0; ...
         0, 0, 0, 0, 0, 0; ...
         1, 1, 1, 1, 1, 1; ...
@@ -164,6 +164,7 @@ while (1)
 
         %% Plot quad, fov, and estimated quad, estimated_map, and sliding window
         subplot(h1);
+        set(gca,'XLim',[-1,9])
         hold on;
         if ~vis_init
             grid on;
@@ -172,28 +173,28 @@ while (1)
             %axis auto
         end
         %% at special time plot S Y S U 
-        if (i == 32)
+        if (i == 15)
             line([s_des(1, 2), s_des(1, 1)], [s_des(2, 2), s_des(2, 1)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 1), s_des(1, 3)], [s_des(2, 1), s_des(2, 3)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 3), s_des(1, 6)], [s_des(2, 3), s_des(2, 6)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 6), s_des(1, 5)], [s_des(2, 6), s_des(2, 5)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 5), s_des(1, 4)], [s_des(2, 5), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
 
-        elseif (i == 82)
+        elseif (i == 30)
             line([s_des(1, 3), s_des(1, 1)], [s_des(2, 3), s_des(2, 1)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 2), s_des(1, 3)], [s_des(2, 2), s_des(2, 3)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 3), s_des(1, 4)], [s_des(2, 3), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 6), s_des(1, 4)], [s_des(2, 6), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 5), s_des(1, 6)], [s_des(2, 5), s_des(2, 6)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
 
-        elseif (i == 132)
+        elseif (i == 45)
             line([s_des(1, 2), s_des(1, 1)], [s_des(2, 2), s_des(2, 1)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 1), s_des(1, 3)], [s_des(2, 1), s_des(2, 3)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 3), s_des(1, 6)], [s_des(2, 3), s_des(2, 6)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 6), s_des(1, 5)], [s_des(2, 6), s_des(2, 5)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 5), s_des(1, 4)], [s_des(2, 5), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
 
-        elseif (i == 182)
+        elseif (i == 60)
             line([s_des(1, 2), s_des(1, 6)], [s_des(2, 2), s_des(2, 6)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 1), s_des(1, 3)], [s_des(2, 1), s_des(2, 3)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 3), s_des(1, 4)], [s_des(2, 3), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
