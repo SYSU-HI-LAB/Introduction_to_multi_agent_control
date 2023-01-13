@@ -12,9 +12,9 @@ w = 1.3;                    % Frequency of AC component of desired distance
 AC = 0.5;   % AC component of desired distances
 
 % x coordinate of framework F*(t)
-x_coor = [0; 0.3; -0.5;-0.3; 0; 0.5];
+x_coor = [0; AC/2; -AC/2;-AC/2; 0; AC/2];
 % y coordinate of framework F*(t) 
-y_coor = [0.5; 0.2; 0;-0.2; -0.5;0];
+y_coor = [AC/2+AC*cos(pi/6); AC/2; AC/2;-AC/2; -AC/2-AC*cos(pi/6);-AC/2];
 q_star2 = [x_coor'; y_coor'];        % 2xn vector
 d = zeros(n,n);                      % initialize the desired distance
 d_dot = zeros(2*n-3,1);
@@ -28,9 +28,9 @@ end
 ACdot = 0 ; % 
 
 % xdot coordinate of framework F*(t)
-x_coor_dot = [0; 0.3*ACdot; -0.5*ACdot;-0.3*ACdot; 0; 0.5*ACdot];
+x_coor_dot = [0; ACdot/2; -ACdot/2; -ACdot/2; 0; ACdot/2];
 % ydot coordinate of framework F*(t)
-y_coor_dot = [0.5*ACdot; 0.2*ACdot; 0;-0.2*ACdot; -0.5*ACdot;0];    
+y_coor_dot = [ACdot/2+ACdot*cos(pi/6); ACdot/2; ACdot/2;-ACdot/2; -ACdot/2-ACdot*cos(pi/6); -ACdot/2];     
 
 q_dot_star2 = [x_coor_dot'; y_coor_dot'];  % 2xn vector
 
