@@ -106,7 +106,7 @@ else
     	psi_c2_last = psi_c2;
     end
 	w = s(11:13);
-	M = I * angle_c2 + cross(w,I*w)
+	M = I * angle_c2 + cross(w,I*w);
 end
 
 

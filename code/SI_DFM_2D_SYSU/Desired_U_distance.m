@@ -22,8 +22,8 @@ end
 
 ACdot = 0 ;
 
-x_coor_dot = [-0.25; 0.25; -0.25;-0.15; 0.15; 0.25];
-y_coor_dot = [0.6; 0.6; -0.2;-0.4; -0.4; -0.2];     
+x_coor_dot = [-0.25*ACdot; 0.25*ACdot; -0.25*ACdot;-0.15*ACdot; 0.15*ACdot; 0.25*ACdot];
+y_coor_dot = [0.6*ACdot; 0.6*ACdot; -0.2*ACdot;-0.4*ACdot; -0.4*ACdot; -0.2*ACdot];     
 q_dot_star2 = [x_coor_dot'; y_coor_dot'];  % 2xn vector
 
 for i = 1:n-1

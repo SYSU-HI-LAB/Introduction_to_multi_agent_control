@@ -28,9 +28,9 @@ end
 ACdot = 0 ; % 
 
 % xdot coordinate of framework F*(t)
-x_coor_dot = [0; 0.3; -0.5;-0.3; 0; 0.5];
+x_coor_dot = [0; 0.3*ACdot; -0.5*ACdot;-0.3*ACdot; 0; 0.5*ACdot];
 % ydot coordinate of framework F*(t)
-y_coor_dot = [0.5; 0.2; 0;-0.2; -0.5;0];     
+y_coor_dot = [0.5*ACdot; 0.2*ACdot; 0;-0.2*ACdot; -0.5*ACdot;0];    
 
 q_dot_star2 = [x_coor_dot'; y_coor_dot'];  % 2xn vector
 

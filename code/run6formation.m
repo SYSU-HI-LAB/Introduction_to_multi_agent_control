@@ -6,7 +6,7 @@ function run6formation(h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11, h12, ...
     h41, h42, h43, h44, h45, h46, h47, h48, h49)
 
 addpath('./SI_DFM_2D_SYSU','./readonly','utils')
-load 'SI_dynamic_fomation_manv_results.mat'
+load '../SI_dynamic_fomation_manv_results.mat'
 
 % Sensor parameters
 fnoise = 1; % Standard deviation of gaussian noise for external disturbance (N)
@@ -22,8 +22,8 @@ roll0 = -30 * pi / 180;
 Quat0 = R_to_quaternion(ypr_to_R([yaw0, pitch0, roll0])');
 
 %% quadrotor true states initialize
-x0 = [0, 0.5, -0.5, -0.5, 0, 0.5; ...
-    1, 0.5, 0.5, -0.5, -1, -0.5; ...
+x0 = [0, 0.25, -0.25, -0.25, 0, 0.25; ...
+    0.5, 0.25, 0.25, -0.25, -0.5, -0.25; ...
     1, 1, 1, 1, 1, 1; ...
     0, 0, 0, 0, 0, 0; ...
     0, 0, 0, 0, 0, 0; ...
@@ -58,10 +58,10 @@ M6 = [0; 0; 0];
 % Time
 tstep = 0.002; % Time step for solving equations of motion // FIXME: not 0.01
 cstep = 0.01; % Period of calling student code
-vstep = 0.05; % visualization interval
+vstep = 0.1; % visualization interval
 time     = 0; % current time
 vis_time = 0; % Time of last visualization
-time_tol = 5; % Maximum time that the quadrotor is allowed to fly
+time_tol = 10; % Maximum time that the quadrotor is allowed to fly
 
 % Visualization
 vis_init = false;
@@ -122,13 +122,18 @@ while (1)
 
     i = ceil(time/0.1);
 
+    Vx=-(true_s(1,:)-[x(i, 1), x(i, 2), x(i, 3), x(i, 4), x(i, 5), x(i, 6)])*6;
+    Vy=-(true_s(2,:)-[y(i, 1), y(i, 2), y(i, 3), y(i, 4), y(i, 5), y(i, 6)])*5;
+    Vz=-(true_s(3,:)-[1, 1, 1, 1, 1, 1])*3;
+
+
 
     s_des = [x(i, 1), x(i, 2), x(i, 3), x(i, 4), x(i, 5), x(i, 6); ...
         y(i, 1), y(i, 2), y(i, 3), y(i, 4), y(i, 5), y(i, 6); ...
         1, 1, 1, 1, 1, 1; ...
-        2, 2, 2, 2, 2, 2; ...
-        1, 1, 1, 1, 1, 1; ...
-        0.5, 0.5, 0.5, 0.5, 0.5, 0.5; ...
+        Vx; ...
+        Vy; ...
+        Vz; ...
         1, 1, 1, 1, 1, 1; ...
         0, 0, 0, 0, 0, 0; ...
         0, 0, 0, 0, 0, 0; ...
@@ -173,28 +178,26 @@ while (1)
             %axis auto
         end
         %% at special time plot S Y S U 
-        if (i == 9)
+        if (i == 17)
             line([s_des(1, 2), s_des(1, 1)], [s_des(2, 2), s_des(2, 1)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 1), s_des(1, 3)], [s_des(2, 1), s_des(2, 3)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 3), s_des(1, 6)], [s_des(2, 3), s_des(2, 6)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 6), s_des(1, 5)], [s_des(2, 6), s_des(2, 5)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 5), s_des(1, 4)], [s_des(2, 5), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
 
-        elseif (i == 18)
+        elseif (i == 33)
             line([s_des(1, 3), s_des(1, 1)], [s_des(2, 3), s_des(2, 1)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 2), s_des(1, 3)], [s_des(2, 2), s_des(2, 3)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
-            line([s_des(1, 3), s_des(1, 4)], [s_des(2, 3), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
-            line([s_des(1, 6), s_des(1, 4)], [s_des(2, 6), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
-            line([s_des(1, 5), s_des(1, 6)], [s_des(2, 5), s_des(2, 6)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
+            line([s_des(1, 3), s_des(1, 5)], [s_des(2, 3), s_des(2, 5)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
 
-        elseif (i == 27)
+        elseif (i == 49)
             line([s_des(1, 2), s_des(1, 1)], [s_des(2, 2), s_des(2, 1)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 1), s_des(1, 3)], [s_des(2, 1), s_des(2, 3)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 3), s_des(1, 6)], [s_des(2, 3), s_des(2, 6)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 6), s_des(1, 5)], [s_des(2, 6), s_des(2, 5)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 5), s_des(1, 4)], [s_des(2, 5), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
 
-        elseif (i == 35)
+        elseif (i == 62)
             line([s_des(1, 2), s_des(1, 6)], [s_des(2, 2), s_des(2, 6)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 1), s_des(1, 3)], [s_des(2, 1), s_des(2, 3)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 3), s_des(1, 4)], [s_des(2, 3), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
