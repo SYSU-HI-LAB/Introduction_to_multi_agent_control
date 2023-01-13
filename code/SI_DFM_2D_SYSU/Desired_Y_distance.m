@@ -10,8 +10,12 @@ function [d,d_dot] = Desired_Y_distance(t,n,Adj)
 A = 0.5;                    % Amplitude of AC component of desired distance
 w = 1.3;                    % Frequency of AC component of desired distance 
 AC = 0.5;
-x_coor = [-(AC); AC; 0;0;0;0.5];
-y_coor = [cos(pi/6)*AC + AC/2; cos(pi/6)*AC + AC/2; AC/2;0; -AC ;-AC/2 ];
+% x_coor = [-(AC)/2; AC/2; AC/4;0;0;-AC/4];
+% % y coordinate of framework F*(t) 
+% y_coor = [cos(pi/3)*AC/2; cos(pi/3)*AC/2; 0;-cos(pi/3)*AC/2; -cos(pi/3)*AC*2 ;0 ];
+x_coor = [-(AC); AC; 0;0;0;0];
+% y coordinate of framework F*(t) 
+y_coor = [cos(pi/6)*AC + AC/2; cos(pi/6)*AC + AC/2; AC/2;-0.2; -AC;-AC/2-0.3 ];
 
 
 q_star2 = [x_coor'; y_coor'];        % 2xn vector
@@ -30,7 +34,7 @@ ACdot = 0. ;
  
 
 x_coor_dot = [-(ACdot); ACdot; 0; 0;0;0];
-y_coor_dot = [cos(pi/6)*ACdot + ACdot/2; cos(pi/6)*ACdot+ACdot/2 ;ACdot/2; 0; -ACdot; -ACdot/2 ]; 
+y_coor_dot = [cos(pi/6)*ACdot + ACdot/2; cos(pi/6)*ACdot+ACdot/2 ;ACdot/2; -0.2; -ACdot; -ACdot/2-0.3 ];  
 
 
 

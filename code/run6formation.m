@@ -16,9 +16,9 @@ ifov = 60; % Camera field of view
 global params;
 params = quadModel_readonly(); % Quad model
 
-yaw0 = -30 * pi / 180;
-pitch0 = -30 * pi / 180;
-roll0 = -30 * pi / 180;
+yaw0 = 0 * pi / 180;
+pitch0 = 0 * pi / 180;
+roll0 = 0 * pi / 180;
 Quat0 = R_to_quaternion(ypr_to_R([yaw0, pitch0, roll0])');
 
 %% quadrotor true states initialize
@@ -68,6 +68,9 @@ vis_init = false;
 
 
 % h1
+Vx=0;
+Vy=0;
+Vz=0;
 thprop1 = [];
 thprop2 = [];
 thprop3 = [];
@@ -122,10 +125,9 @@ while (1)
 
     i = ceil(time/0.1);
 
-    Vx=-(true_s(1,:)-[x(i, 1), x(i, 2), x(i, 3), x(i, 4), x(i, 5), x(i, 6)])*6;
-    Vy=-(true_s(2,:)-[y(i, 1), y(i, 2), y(i, 3), y(i, 4), y(i, 5), y(i, 6)])*5;
-    Vz=-(true_s(3,:)-[1, 1, 1, 1, 1, 1])*3;
-
+    Vx = ([x(i, 1), x(i, 2), x(i, 3), x(i, 4), x(i, 5), x(i, 6)]-true_s(1,:))*6+0.4*Vx+0.1;
+    Vy = ([y(i, 1), y(i, 2), y(i, 3), y(i, 4), y(i, 5), y(i, 6)]-true_s(2,:))*6+0.4*Vy;
+    Vz = ([1,1,1,1,1,1]-true_s(3,:))*6+0.4*Vz;
 
 
     s_des = [x(i, 1), x(i, 2), x(i, 3), x(i, 4), x(i, 5), x(i, 6); ...
@@ -178,26 +180,27 @@ while (1)
             %axis auto
         end
         %% at special time plot S Y S U 
-        if (i == 17)
+        if (i == 13)
             line([s_des(1, 2), s_des(1, 1)], [s_des(2, 2), s_des(2, 1)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 1), s_des(1, 3)], [s_des(2, 1), s_des(2, 3)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 3), s_des(1, 6)], [s_des(2, 3), s_des(2, 6)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 6), s_des(1, 5)], [s_des(2, 6), s_des(2, 5)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 5), s_des(1, 4)], [s_des(2, 5), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
-
-        elseif (i == 33)
+        elseif (i == 27)
             line([s_des(1, 3), s_des(1, 1)], [s_des(2, 3), s_des(2, 1)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 2), s_des(1, 3)], [s_des(2, 2), s_des(2, 3)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
-            line([s_des(1, 3), s_des(1, 5)], [s_des(2, 3), s_des(2, 5)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
+            line([s_des(1, 3), s_des(1, 4)], [s_des(2, 3), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
+            line([s_des(1, 5), s_des(1, 4)], [s_des(2, 5), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
+            line([s_des(1, 5), s_des(1, 6)], [s_des(2, 5), s_des(2, 6)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
 
-        elseif (i == 49)
+        elseif (i == 42)
             line([s_des(1, 2), s_des(1, 1)], [s_des(2, 2), s_des(2, 1)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 1), s_des(1, 3)], [s_des(2, 1), s_des(2, 3)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 3), s_des(1, 6)], [s_des(2, 3), s_des(2, 6)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 6), s_des(1, 5)], [s_des(2, 6), s_des(2, 5)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 5), s_des(1, 4)], [s_des(2, 5), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
 
-        elseif (i == 62)
+        elseif (i == 51)
             line([s_des(1, 2), s_des(1, 6)], [s_des(2, 2), s_des(2, 6)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 1), s_des(1, 3)], [s_des(2, 1), s_des(2, 3)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 3), s_des(1, 4)], [s_des(2, 3), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);

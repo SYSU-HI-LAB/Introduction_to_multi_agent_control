@@ -3,7 +3,7 @@ clc
 close all
 
 %% modify ode45 options to form SYSU, the formation may fail due to the ode45 accuracy and formation init position,especially for y->s
-opts = odeset('NormControl', 'on', 'Reltol',1e-13,'AbsTol',1e-13, 'Stats','on');
+opts = odeset('NormControl', 'on', 'Reltol',1e-13,'AbsTol',1e-13, 'Stats','on','Refine',16);
 
 %% Parameter Setting
 n = 6; % Number of agents
@@ -17,8 +17,7 @@ Adj = [0, 1, 1, 1, 1, 1; ...
     1, 1, 1, 1, 0, 1; ...
     1, 0, 0, 0, 1, 0];
 
-
-tfinal = 1.5; % Simulation ending time
+tfinal = 1.2; % Simulation ending time
 h = 1e-1; % 1e-2                 % ODE step
 
 % Encapusulate the paremeters into a structure 'para'
