@@ -6,7 +6,7 @@ function run6formation(h1, h2, h3, h4, h5, h6, h7, h8, h9, h10, h11, h12, ...
     h41, h42, h43, h44, h45, h46, h47, h48, h49)
 
 addpath('./SI_DFM_2D_SYSU','./readonly','utils')
-load '../SI_dynamic_fomation_manv_results.mat'
+load 'SI_dynamic_fomation_manv_results.mat'
 
 % Sensor parameters
 fnoise = 1; % Standard deviation of gaussian noise for external disturbance (N)
@@ -16,9 +16,9 @@ ifov = 60; % Camera field of view
 global params;
 params = quadModel_readonly(); % Quad model
 
-yaw0 = 0* pi / 180;
-pitch0 = 0 * pi / 180;
-roll0 = 0 * pi / 180;
+yaw0 = -30 * pi / 180;
+pitch0 = -30 * pi / 180;
+roll0 = -30 * pi / 180;
 Quat0 = R_to_quaternion(ypr_to_R([yaw0, pitch0, roll0])');
 
 %% quadrotor true states initialize
@@ -68,9 +68,6 @@ vis_init = false;
 
 
 % h1
-Vx=0;
-Vy=0;
-Vz=0;
 thprop1 = [];
 thprop2 = [];
 thprop3 = [];
@@ -126,18 +123,12 @@ while (1)
     i = ceil(time/0.1);
 
 
-    Vx=-(true_s(1,:)-[x(i, 1), x(i, 2), x(i, 3), x(i, 4), x(i, 5), x(i, 6)])*6+0.4*Vx+0.1;
-    Vy=-(true_s(2,:)-[y(i, 1), y(i, 2), y(i, 3), y(i, 4), y(i, 5), y(i, 6)])*5+0.4*Vy;
-    Vz=-(true_s(3,:)-[1, 1, 1, 1, 1, 1])*4+0.4*Vz;
-
-
-
     s_des = [x(i, 1), x(i, 2), x(i, 3), x(i, 4), x(i, 5), x(i, 6); ...
         y(i, 1), y(i, 2), y(i, 3), y(i, 4), y(i, 5), y(i, 6); ...
         1, 1, 1, 1, 1, 1; ...
-        Vx; ...
-        Vy; ...
-        Vz; ...
+        1, 1, 1, 1, 1, 1; ...
+        0, 0, 0, 0, 0, 0; ...
+        0, 0, 0, 0, 0, 0; ...
         1, 1, 1, 1, 1, 1; ...
         0, 0, 0, 0, 0, 0; ...
         0, 0, 0, 0, 0, 0; ...
@@ -182,28 +173,28 @@ while (1)
             %axis auto
         end
         %% at special time plot S Y S U 
-        if (i == 14)
+        if (i == 15)
             line([s_des(1, 2), s_des(1, 1)], [s_des(2, 2), s_des(2, 1)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 1), s_des(1, 3)], [s_des(2, 1), s_des(2, 3)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 3), s_des(1, 6)], [s_des(2, 3), s_des(2, 6)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 6), s_des(1, 5)], [s_des(2, 6), s_des(2, 5)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 5), s_des(1, 4)], [s_des(2, 5), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
 
-        elseif (i == 28)
+        elseif (i == 30)
             line([s_des(1, 3), s_des(1, 1)], [s_des(2, 3), s_des(2, 1)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 2), s_des(1, 3)], [s_des(2, 2), s_des(2, 3)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 3), s_des(1, 4)], [s_des(2, 3), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
-            line([s_des(1, 5), s_des(1, 4)], [s_des(2, 5), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
+            line([s_des(1, 6), s_des(1, 4)], [s_des(2, 6), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 5), s_des(1, 6)], [s_des(2, 5), s_des(2, 6)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
 
-        elseif (i == 40)
+        elseif (i == 45)
             line([s_des(1, 2), s_des(1, 1)], [s_des(2, 2), s_des(2, 1)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 1), s_des(1, 3)], [s_des(2, 1), s_des(2, 3)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 3), s_des(1, 6)], [s_des(2, 3), s_des(2, 6)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 6), s_des(1, 5)], [s_des(2, 6), s_des(2, 5)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 5), s_des(1, 4)], [s_des(2, 5), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
 
-        elseif (i == 50)
+        elseif (i == 60)
             line([s_des(1, 2), s_des(1, 6)], [s_des(2, 2), s_des(2, 6)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 1), s_des(1, 3)], [s_des(2, 1), s_des(2, 3)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 3), s_des(1, 4)], [s_des(2, 3), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
