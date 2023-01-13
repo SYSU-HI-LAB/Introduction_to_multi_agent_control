@@ -189,7 +189,7 @@ while (1)
             line([s_des(1, 6), s_des(1, 5)], [s_des(2, 6), s_des(2, 5)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 5), s_des(1, 4)], [s_des(2, 5), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
 
-        elseif (i == 28)
+        elseif (i == 26)
             line([s_des(1, 3), s_des(1, 1)], [s_des(2, 3), s_des(2, 1)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 2), s_des(1, 3)], [s_des(2, 2), s_des(2, 3)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
             line([s_des(1, 3), s_des(1, 4)], [s_des(2, 3), s_des(2, 4)], 'Color', [0.5, 0.5, 1], 'LineWidth', 3);
