@@ -32,6 +32,7 @@ for ii = 1:1:length(t)
                 if Adj_plot_s(i0, j0) == 1
                     line([xx(ii, i0), xx(ii, j0)], [yy(ii, i0), yy(ii, j0)], ...
                         'LineWidth', lw)
+                    
 
                 end
             end
