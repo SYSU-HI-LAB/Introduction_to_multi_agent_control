@@ -18,7 +18,7 @@ Adj = [0, 1, 1, 0, 0, 0; ...
     0, 1, 1, 1, 1, 0];
 
 
-tfinal = 1.8; % Simulation ending time
+tfinal = 1.2; % Simulation ending time
 h = 1e-1; % 1e-2                 % ODE step
 
 % Encapusulate the paremeters into a structure 'para'
