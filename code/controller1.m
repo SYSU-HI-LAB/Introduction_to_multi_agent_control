@@ -33,7 +33,6 @@ while(i<4)
 	i = i + 1;
 end
 F = m * (g + r2c(3));
-
 %attitude control
 q = s(7:10);
 [phi,theta,psi] = RotToRPY_ZXY(quaternion_to_R(q));
@@ -63,7 +62,7 @@ persistent t_last;
 
 phi_error = phi_c - phi;
 theta_error = theta_c - theta;
-q_des = s_des(7:10);
+q_des = s_des(7:10)+0.05;
 [phi_des,theta_des,psi_des] = RotToRPY_ZXY(quaternion_to_R(q_des)');
 psi_error = psi_des - psi;
 if psi_error < -pi
@@ -107,7 +106,7 @@ else
     	psi_c2_last = psi_c2;
     end
 	w = s(11:13);
-	M = I * angle_c2 + cross(w,I*w);
+	M = I * angle_c2 + cross(w,I*w)
 end
 
 
